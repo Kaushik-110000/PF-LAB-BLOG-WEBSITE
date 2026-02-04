@@ -5,7 +5,7 @@ import multer from "multer";
 
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
-import userRoutes from "./routes/users.js";
+// import userRoutes from "./routes/users.js";
 
 const app = express();
 
@@ -40,7 +40,7 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
 
 // ✅ Routes
 app.use("/api/posts", postRoutes);
-app.use("/api/users", userRoutes);
+// app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
 // ✅ Start server
