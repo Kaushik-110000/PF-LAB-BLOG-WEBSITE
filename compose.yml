@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # 1. DATABASE SERVICE (Hostname: mysql)
+  mysql:
+    image: mysql:8.0
+    container_name: blog-mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Root@123
+      MYSQL_DATABASE: blog_app_db
+      MYSQL_USER: blog_user
+      MYSQL_PASSWORD: User@123
+    ports:
+      - "3307:3306"
+    volumes:
+      - blog_mysql_data:/var/lib/mysql
+
+  # 2. BACKEND SERVICE
+  backend:
+    build: ./api
+    container_name: blog-backend
+    restart: always
+    ports:
+      - "8800:8800"
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql  # Backend now looks for 'mysql'
+      - DB_USER=root
+      - DB_PASSWORD=Root@123
+      - DB_NAME=blog_app_db
+
+  # 3. FRONTEND SERVICE
+  frontend:
+    build: ./front
+    container_name: blog-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  blog_mysql_data:

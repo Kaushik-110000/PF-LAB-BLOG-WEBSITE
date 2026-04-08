@@ -1,10 +1,10 @@
 import mysql from "mysql2";
 
 export const db = mysql.createConnection({
-  host: "localhost",
+  host: "mysql",//"host.docker.internal",
   user: "root",
-  password: "rootdiemert2020",
-  database: "blog",
+  password: "Root@123",
+  database: "blog_app_db",
 });
 
 db.connect((err) => {
